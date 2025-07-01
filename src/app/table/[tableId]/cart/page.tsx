@@ -1,17 +1,5 @@
 "use client";
 
-import {
-  Typography,
-  Button,
-  Card,
-  CardBody,
-  IconButton,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-} from "@material-tailwind/react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiMinus, FiPlus, FiTrash2, FiArrowLeft, FiPhone, FiUser } from 'react-icons/fi';
@@ -160,158 +148,143 @@ export default function TableCart() {
 
   return (
     <div className="container mx-auto px-4 py-32">
-      <Typography variant="h2" color="blue-gray" className="mb-8">
-        Your Order - Table {tableId}
-      </Typography>
+      <h2 className="mb-8 text-3xl font-bold text-blue-gray-900">Your Order - Table {tableId}</h2>
 
       {cart.length === 0 ? (
-        <Card>
-          <CardBody className="text-center py-12">
-            <Typography variant="h5" color="blue-gray" className="mb-4">
-              Your cart is empty
-            </Typography>
-            <Button
-              color="blue"
-              onClick={() => router.push(`/table/${tableId}`)}
-            >
-              View Menu
-            </Button>
-          </CardBody>
-        </Card>
+        <div className="text-center py-12">
+          <h5 className="mb-4">Your cart is empty</h5>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={() => router.push(`/table/${tableId}`)}
+          >
+            View Menu
+          </button>
+        </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             {cart.map((item, index) => (
-              <Card key={index} className="mb-4">
-                <CardBody className="flex items-center gap-4">
-                  <div className="flex-grow">
-                    <Typography variant="h6" color="blue-gray">
-                      {item.name}
-                    </Typography>
-                    <Typography color="gray">
-                      {item.price} x {item.quantity}
-                    </Typography>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <IconButton
-                      variant="text"
-                      size="sm"
-                      onClick={() => updateQuantity(index, item.quantity - 1)}
-                    >
-                      <FiMinus />
-                    </IconButton>
-                    <Typography>{item.quantity}</Typography>
-                    <IconButton
-                      variant="text"
-                      size="sm"
-                      onClick={() => updateQuantity(index, item.quantity + 1)}
-                    >
-                      <FiPlus />
-                    </IconButton>
-                    <IconButton
-                      variant="text"
-                      color="red"
-                      onClick={() => removeItem(index)}
-                    >
-                      <FiTrash2 />
-                    </IconButton>
-                  </div>
-                </CardBody>
-              </Card>
+              <div key={index} className="flex items-center gap-4 mb-4">
+                <div className="flex-grow">
+                  <h6>{item.name}</h6>
+                  <p>{item.price} x {item.quantity}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    className="text-sm"
+                    onClick={() => updateQuantity(index, item.quantity - 1)}
+                  >
+                    <FiMinus />
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    className="text-sm"
+                    onClick={() => updateQuantity(index, item.quantity + 1)}
+                  >
+                    <FiPlus />
+                  </button>
+                  <button
+                    className="text-red-500 text-sm"
+                    onClick={() => removeItem(index)}
+                  >
+                    <FiTrash2 />
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
 
-          <Card className="h-fit">
-            <CardBody>
-              <Typography variant="h5" color="blue-gray" className="mb-4">
-                Order Summary
-              </Typography>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <Typography color="gray">Subtotal</Typography>
-                  <Typography>₹{total}</Typography>
-                </div>
-                <div className="border-t border-gray-200 my-4"></div>
-                <div className="flex justify-between">
-                  <Typography variant="h6">Total</Typography>
-                  <Typography variant="h6" color="blue">
-                    ₹{total}
-                  </Typography>
-                </div>
+          <div className="h-fit">
+            <h5 className="mb-4">Order Summary</h5>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <p className="text-gray-500">Subtotal</p>
+                <p>₹{total}</p>
               </div>
-              <Button
-                color="blue"
-                fullWidth
-                className="mt-6"
-                onClick={() => setShowConfirmDialog(true)}
-              >
-                Place Order
-              </Button>
-            </CardBody>
-          </Card>
+              <div className="border-t border-gray-200 my-4"></div>
+              <div className="flex justify-between">
+                <h6>Total</h6>
+                <h6 className="text-blue-500">
+                  ₹{total}
+                </h6>
+              </div>
+            </div>
+            <button
+              className="w-full bg-blue-500 text-white py-2 mt-6"
+              onClick={() => setShowConfirmDialog(true)}
+            >
+              Place Order
+            </button>
+          </div>
         </div>
       )}
 
-      <Dialog open={showConfirmDialog} handler={() => setShowConfirmDialog(false)}>
-        <DialogHeader>Complete Your Order</DialogHeader>
-        <DialogBody>
-          <div className="space-y-4">
-            <div>
-              <Input
-                label="Your Name"
-                icon={<FiUser />}
-                value={customerName}
-                onChange={(e) => {
-                  setCustomerName(e.target.value);
-                  setNameError("");
-                }}
-                error={!!nameError}
-              />
-              {nameError && (
-                <Typography color="red" className="text-xs mt-1">
-                  {nameError}
-                </Typography>
-              )}
-            </div>
+      <div className={`fixed inset-0 bg-black bg-opacity-50 ${showConfirmDialog ? '' : 'hidden'}`}>
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center h-full">
+            <div className="bg-white p-8 rounded-lg">
+              <h2 className="text-2xl font-bold mb-4">Complete Your Order</h2>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={customerName}
+                    onChange={(e) => {
+                      setCustomerName(e.target.value);
+                      setNameError("");
+                    }}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  />
+                  {nameError && (
+                    <p className="text-xs text-red-500 mt-1">{nameError}</p>
+                  )}
+                </div>
 
-            <div>
-              <Input
-                type="tel"
-                label="Phone Number"
-                icon={<FiPhone />}
-                value={phoneNumber}
-                onChange={(e) => {
-                  setPhoneNumber(e.target.value);
-                  setPhoneError("");
-                }}
-                error={!!phoneError}
-              />
-              {phoneError && (
-                <Typography color="red" className="text-xs mt-1">
-                  {phoneError}
-                </Typography>
-              )}
-            </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    value={phoneNumber}
+                    onChange={(e) => {
+                      setPhoneNumber(e.target.value);
+                      setPhoneError("");
+                    }}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  />
+                  {phoneError && (
+                    <p className="text-xs text-red-500 mt-1">{phoneError}</p>
+                  )}
+                </div>
 
-            <Typography color="gray" className="text-sm">
-              Please provide your details for order confirmation
-            </Typography>
+                <p className="text-sm text-gray-500">
+                  Please provide your details for order confirmation
+                </p>
+              </div>
+              <div className="mt-4 space-x-2">
+                <button
+                  className="px-4 py-2 bg-red-500 text-white rounded"
+                  onClick={() => setShowConfirmDialog(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  onClick={handlePlaceOrder}
+                >
+                  Confirm Order
+                </button>
+              </div>
+            </div>
           </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={() => setShowConfirmDialog(false)}
-            className="mr-1"
-          >
-            Cancel
-          </Button>
-          <Button color="blue" onClick={handlePlaceOrder}>
-            Confirm Order
-          </Button>
-        </DialogFooter>
-      </Dialog>
+        </div>
+      </div>
     </div>
   );
 } 
