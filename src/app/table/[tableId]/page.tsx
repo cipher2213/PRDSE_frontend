@@ -2,12 +2,6 @@
 
 import { Navbar, Footer } from "@/components";
 import { MenuItemCard } from "@/components/menu-item-card";
-import {
-  Typography,
-  Card,
-  CardBody,
-  Button,
-} from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
@@ -98,43 +92,33 @@ export default function TableMenu() {
       <Toaster />
       <div className="pt-32 pb-20 px-8">
         <div className="container mx-auto">
-          <Card className="mb-8 bg-blue-gray-50">
-            <CardBody>
+          <div className="mb-8 bg-blue-gray-50 rounded-lg shadow">
+            <div className="p-6">
               <div className="flex justify-between items-center">
                 <div>
-                  <Typography variant="h3" color="blue-gray" className="mb-2">
-                    Table {tableId}
-                  </Typography>
-                  <Typography variant="lead" color="gray">
-                    Welcome! Ready to order?
-                  </Typography>
+                  <h3 className="mb-2 text-2xl font-bold text-blue-gray-900">Table {tableId}</h3>
+                  <p className="text-lg text-gray-600">Welcome! Ready to order?</p>
                 </div>
                 {cart.length > 0 && (
-                  <Button
-                    color="blue"
-                    size="lg"
+                  <button
+                    className="flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition-colors"
                     onClick={() => router.push(`/table/${tableId}/cart`)}
-                    className="flex items-center gap-2"
                   >
                     <span>View Cart</span>
                     <span className="bg-white text-blue-500 px-2 py-1 rounded-full text-sm">
                       {cart.reduce((sum, item) => sum + item.quantity, 0)}
                     </span>
-                  </Button>
+                  </button>
                 )}
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
           {Object.entries(menuData).map(([category, items]) => (
             <div key={category} className="mb-12">
-              <Typography
-                variant="h4"
-                color="blue-gray"
-                className="mb-8 border-b-2 border-gray-300 pb-2 capitalize"
-              >
+              <h4 className="mb-8 border-b-2 border-gray-300 pb-2 capitalize text-2xl font-bold text-blue-gray-900">
                 {category.replace(/_/g, " ")}
-              </Typography>
+              </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {items.map((item, index) => (
                   <MenuItemCard
