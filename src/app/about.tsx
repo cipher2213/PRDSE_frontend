@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography } from "@material-tailwind/react";
+
 import { StatsCard } from "@/components";
 import Image from "next/image";
 

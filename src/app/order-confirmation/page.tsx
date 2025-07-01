@@ -2,7 +2,6 @@
 
 import { Navbar, Footer } from "@/components";
 import {
-  Typography,
   Card,
   CardBody,
   Button,

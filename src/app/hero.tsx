@@ -1,6 +1,6 @@
 "use client";
 
-import { IconButton, Button, Typography } from "@material-tailwind/react";
+import { IconButton, Button } from "@material-tailwind/react";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -66,30 +66,29 @@ function Hero({ tableId, onViewMenu }: HeroProps) {
       {/* Content */}
       <div className="grid min-h-screen px-8">
         <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
-          <Typography variant="h3" color="white" className="mb-2">
+          <h3 className="mb-2 text-white text-2xl md:text-3xl font-semibold leading-relaxed">
             Open Daily 10AM - 10PM @ Parbhani
-          </Typography>
-          <Typography variant="h1" color="white" className="lg:max-w-3xl">
+          </h3>
+          <h1 className="lg:max-w-3xl text-white text-4xl md:text-5xl font-bold leading-loose">
             Paradise Cafe: Where Every Sip Tells a Story
-          </Typography>
+          </h1>
           <div className="mt-1 mb-12 w-full md:max-w-full lg:max-w-2xl">
-            <Typography variant="lead" color="white">
+            <p className="text-white text-lg md:text-xl font-normal leading-relaxed">
               Experience the perfect blend of artisanal coffee, gourmet cuisine, and warm hospitality in our cozy paradise .
-            </Typography>
+            </p>
             {tableId && (
-              <Typography variant="lead" color="white" className="mt-4">
+              <p className="mt-4 text-white text-lg font-semibold">
                 <span className="font-bold">Table {tableId}</span>
-              </Typography>
+              </p>
             )}
           </div>
           <div className="flex items-center gap-4">
-            <Button 
-              variant="gradient" 
-              color="white"
+            <button 
+              className="bg-gradient-to-r from-white to-gray-200 text-gray-900 font-semibold px-6 py-3 rounded-lg shadow-md hover:from-yellow-100 hover:to-white transition-colors duration-200"
               onClick={handleMenuClick}
             >
               View Menu
-            </Button>
+            </button>
           </div>
           {/* Visitor No. Card below contact/lead section */}
           {visitorCount !== null && (

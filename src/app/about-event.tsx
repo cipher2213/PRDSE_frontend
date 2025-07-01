@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography } from "@material-tailwind/react";
+
 import AboutCard from "@/components/about-card";
 
 const CAFE_INFO = [
@@ -23,20 +23,19 @@ const CAFE_INFO = [
 export function AboutEvent() {
   return (
     <section className="container mx-auto flex flex-col items-center px-4 py-10">
-      <Typography variant="h6" className="text-center mb-2" color="orange">
+      <h6 className="text-center mb-2 text-orange-500">
         About Paradise Cafe
-      </Typography>
-      <Typography variant="h3" className="text-center" color="blue-gray">
+      </h6>
+      <h2 className="text-center text-blue-gray-900 text-4xl font-bold">
         Why Choose Us?
-      </Typography>
-      <Typography
-        variant="lead"
-        className="mt-2 lg:max-w-4xl mb-8 w-full text-center font-normal !text-gray-500"
+      </h2>
+      <p
+        className="mt-2 lg:max-w-4xl mb-8 w-full text-center font-normal !text-gray-500 text-lg"
       >
         Welcome to Paradise Cafe, where every visit is a journey into culinary excellence! 
         Whether you're a coffee connoisseur, a food enthusiast, or simply looking for a 
         cozy spot to unwind, our cafe offers the perfect blend of comfort, quality, and community.
-      </Typography>
+      </p>
       <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
         {CAFE_INFO.map((props, idx) => (
           <AboutCard key={idx} {...props} />
