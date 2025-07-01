@@ -289,59 +289,54 @@ export default function MenuManagement() {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h4 className="text-blue-gray-900 text-2xl font-bold">
-          Menu Management
-        </h4>
-        <button
-          className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-          onClick={() => setShowAddDialog(true)}
-        >
-          <FiPlus className="h-4 w-4" /> Add New Item
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {menuItems.map((item) => (
-          <div key={item._id} className="overflow-hidden bg-white rounded-lg shadow">
-            <div className="h-48 relative">
-              <Image
-                src={item.img}
-                alt={item.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-4">
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <h5 className="text-blue-gray-900 text-lg font-bold">{item.name}</h5>
-                  <p className="text-gray-500 text-sm capitalize">{item.category.replace(/_/g, " ")}</p>
+    <div className="min-h-screen bg-gray-100 py-6 px-2 sm:px-6 lg:px-8">
+      <h3 className="text-2xl sm:text-3xl font-bold text-blue-gray-900 mb-6 text-center sm:text-left">Menu Management</h3>
+      {loading ? (
+        <div className="text-center py-12">Loading menu items...</div>
+      ) : menuItems.length === 0 ? (
+        <div className="bg-white rounded-lg shadow p-8 text-center">No menu items found.</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {menuItems.map((item) => (
+            <div key={item._id} className="bg-white rounded-lg shadow p-4 flex flex-col">
+              <div className="h-48 relative">
+                <Image
+                  src={item.img}
+                  alt={item.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h5 className="text-blue-gray-900 text-lg font-bold">{item.name}</h5>
+                    <p className="text-gray-500 text-sm capitalize">{item.category.replace(/_/g, " ")}</p>
+                  </div>
+                  <h6 className="text-blue-gray-900 text-base font-semibold">₹{item.price}</h6>
                 </div>
-                <h6 className="text-blue-gray-900 text-base font-semibold">₹{item.price}</h6>
-              </div>
-              <p className="text-gray-500 mb-4">{item.description}</p>
-              <div className="flex justify-end gap-2">
-                <button
-                  className="p-2 rounded-full hover:bg-blue-100 text-blue-gray-700 transition-colors"
-                  onClick={() => openEditDialog(item)}
-                  title="Edit"
-                >
-                  <FiEdit2 className="h-4 w-4" />
-                </button>
-                <button
-                  className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
-                  onClick={() => handleDeleteItem(item._id)}
-                  title="Delete"
-                >
-                  <FiTrash2 className="h-4 w-4" />
-                </button>
+                <p className="text-gray-500 mb-4">{item.description}</p>
+                <div className="flex justify-end gap-2">
+                  <button
+                    className="p-2 rounded-full hover:bg-blue-100 text-blue-gray-700 transition-colors"
+                    onClick={() => openEditDialog(item)}
+                    title="Edit"
+                  >
+                    <FiEdit2 className="h-4 w-4" />
+                  </button>
+                  <button
+                    className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
+                    onClick={() => handleDeleteItem(item._id)}
+                    title="Delete"
+                  >
+                    <FiTrash2 className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Add/Edit Item Modal */}
       {(showAddDialog || showEditDialog) && (
