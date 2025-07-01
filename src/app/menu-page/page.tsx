@@ -2,7 +2,6 @@
 
 import { Navbar, Footer } from "@/components";
 import { MenuItemCard } from "@/components/menu-item-card";
-import { Typography, Button } from "@material-tailwind/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -94,23 +93,19 @@ export default function MenuPage() {
       <Navbar />
       <div className="pt-32 pb-20 px-8">
         <div className="container mx-auto">
-          <Typography variant="h1" color="blue-gray" className="text-center mb-4">
-            Our Menu
-          </Typography>
+          <h1 className="text-5xl font-bold text-blue-gray-900 text-center mb-4">Our Menu</h1>
           
           {/* Cart Summary */}
           <div className="flex justify-between items-center mb-8">
-            <Typography variant="lead" className="text-gray-600">
+            <p className="text-lg text-gray-600">
               {cart.length > 0 ? `${cart.reduce((sum, item) => sum + item.quantity, 0)} items in cart` : 'Cart is empty'}
-            </Typography>
+            </p>
             <div className="flex items-center gap-4">
-              <Typography variant="h6" color="blue-gray">
-                Total: ₹{cartTotal}
-              </Typography>
+              <span className="text-lg font-semibold text-blue-gray-900">Total: ₹{cartTotal}</span>
               <Link href="/cart">
-                <Button color="green" size="md">
+                <button className="px-5 py-2 rounded bg-green-500 text-white font-semibold hover:bg-green-600 transition-colors">
                   View Cart
-                </Button>
+                </button>
               </Link>
             </div>
           </div>
@@ -118,9 +113,9 @@ export default function MenuPage() {
           {/* Menu Sections */}
           {Object.entries(menuData).map(([section, items]) => (
             <div className="mb-12" key={section}>
-              <Typography variant="h2" color="blue-gray" className="mb-8 border-b-2 border-gray-300 pb-2 capitalize">
+              <h2 className="text-3xl font-bold text-blue-gray-900 mb-8 border-b-2 border-gray-300 pb-2 capitalize">
                 {section.replace(/_/g, " ")}
-              </Typography>
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {(items as any[]).map((item, index) => (
                   <MenuItemCard

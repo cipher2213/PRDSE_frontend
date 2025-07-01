@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
+
 import { FiMenu, FiUsers, FiShoppingBag, FiBarChart } from "react-icons/fi";
 import Link from "next/link";
 
@@ -77,146 +77,134 @@ export default function AdminDashboard() {
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          <Card className="bg-white overflow-hidden shadow rounded-lg">
-            <CardBody className="p-5">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <FiShoppingBag className="h-6 w-6 text-blue-500" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
-                  <Typography variant="small" color="blue-gray" className="font-medium">
+                  <h6 className="font-medium text-blue-gray-900 text-sm">
                     Total Orders
-                  </Typography>
-                  <Typography variant="h5" color="blue-gray">
+                  </h6>
+                  <h5 className="text-blue-gray-900 text-xl font-bold">
                     {stats.totalOrders}
-                  </Typography>
+                  </h5>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="bg-white overflow-hidden shadow rounded-lg">
-            <CardBody className="p-5">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <FiShoppingBag className="h-6 w-6 text-yellow-500" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
-                  <Typography variant="small" color="blue-gray" className="font-medium">
+                  <h6 className="font-medium text-blue-gray-900 text-sm">
                     Pending Orders
-                  </Typography>
-                  <Typography variant="h5" color="blue-gray">
+                  </h6>
+                  <h5 className="text-blue-gray-900 text-xl font-bold">
                     {stats.pendingOrders}
-                  </Typography>
+                  </h5>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="bg-white overflow-hidden shadow rounded-lg">
-            <CardBody className="p-5">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <FiBarChart className="h-6 w-6 text-green-500" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
-                  <Typography variant="small" color="blue-gray" className="font-medium">
+                  <h6 className="font-medium text-blue-gray-900 text-sm">
                     Revenue
-                  </Typography>
-                  <Typography variant="h5" color="blue-gray">
+                  </h6>
+                  <h5 className="text-blue-gray-900 text-xl font-bold">
                     ₹{stats.revenue}
-                  </Typography>
+                  </h5>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="bg-white overflow-hidden shadow rounded-lg">
-            <CardBody className="p-5">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <FiUsers className="h-6 w-6 text-purple-500" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
-                  <Typography variant="small" color="blue-gray" className="font-medium">
+                  <h6 className="font-medium text-blue-gray-900 text-sm">
                     Active Users
-                  </Typography>
-                  <Typography variant="h5" color="blue-gray">
+                  </h6>
+                  <h5 className="text-blue-gray-900 text-xl font-bold">
                     {stats.activeUsers}
-                  </Typography>
+                  </h5>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="bg-white overflow-hidden shadow rounded-lg">
-            <CardBody className="p-5">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <FiBarChart className="h-6 w-6 text-indigo-500" />
                 </div>
                 <div className="ml-5 w-0 flex-1">
-                  <Typography variant="small" color="blue-gray" className="font-medium">
+                  <h6 className="font-medium text-blue-gray-900 text-sm">
                     Total Visitors
-                  </Typography>
-                  <Typography variant="h5" color="blue-gray">
+                  </h6>
+                  <h5 className="text-blue-gray-900 text-xl font-bold">
                     {stats.visitorCount}
-                  </Typography>
+                  </h5>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Management Cards */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Orders Management Card */}
-          <Card>
-            <CardBody className="flex flex-col items-center text-center">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="flex flex-col items-center text-center p-6">
               <FiShoppingBag className="h-12 w-12 text-blue-500 mb-4" />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                Orders Management
-              </Typography>
-              <Typography color="gray" className="mb-4">
-                View and manage customer orders
-              </Typography>
+              <h5 className="text-blue-gray-900 text-xl font-bold mb-2">Orders Management</h5>
+              <p className="text-gray-500 mb-4">View and manage customer orders</p>
               <Link href="/admin/dashboard/orders">
-                <Button color="blue">Manage Orders</Button>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Manage Orders</button>
               </Link>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
           {/* Menu Management Card */}
-          <Card>
-            <CardBody className="flex flex-col items-center text-center">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="flex flex-col items-center text-center p-6">
               <FiMenu className="h-12 w-12 text-green-500 mb-4" />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                Menu Management
-              </Typography>
-              <Typography color="gray" className="mb-4">
-                Add, edit, or remove menu items
-              </Typography>
+              <h5 className="text-blue-gray-900 text-xl font-bold mb-2">Menu Management</h5>
+              <p className="text-gray-500 mb-4">Add, edit, or remove menu items</p>
               <Link href="/admin/dashboard/menu">
-                <Button color="green">Manage Menu</Button>
+                <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Manage Menu</button>
               </Link>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
 
           {/* User Management Card */}
-          <Card>
-            <CardBody className="flex flex-col items-center text-center">
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="flex flex-col items-center text-center p-6">
               <FiUsers className="h-12 w-12 text-purple-500 mb-4" />
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                User Management
-              </Typography>
-              <Typography color="gray" className="mb-4">
-                View and manage registered users
-              </Typography>
+              <h5 className="text-blue-gray-900 text-xl font-bold mb-2">User Management</h5>
+              <p className="text-gray-500 mb-4">View and manage registered users</p>
               <Link href="/admin/dashboard/users">
-                <Button color="purple">Manage Users</Button>
+                <button className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">Manage Users</button>
               </Link>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
         </div>
       </main>
     </div>

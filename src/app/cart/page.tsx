@@ -1,18 +1,6 @@
 "use client";
 
 import { Navbar, Footer } from "@/components";
-import {
-  Typography,
-  Button,
-  IconButton,
-  Card,
-  CardBody,
-  Input,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -104,36 +92,33 @@ export default function CartPage() {
       <div className="container mx-auto px-4 py-32">
         <div className="flex items-center gap-4 mb-8">
           <Link href="/menu-page">
-            <Button
-              variant="text"
-              className="flex items-center gap-2"
-              color="blue-gray"
+            <button
+              className="flex items-center gap-2 px-4 py-2 text-blue-gray-700 hover:bg-blue-gray-50 rounded transition-colors border border-blue-gray-100"
+              type="button"
             >
               <FiArrowLeft className="h-4 w-4" /> Back to Menu
-            </Button>
+            </button>
           </Link>
-          <Typography variant="h2" color="blue-gray">
+          <h2 className="text-4xl font-bold text-blue-gray-900">
             Your Cart
-          </Typography>
+          </h2>
         </div>
 
         {cart.length === 0 ? (
           <div className="text-center py-16">
-            <Typography variant="h4" color="blue-gray" className="mb-4">
-              Your cart is empty
-            </Typography>
+            <h4 className="mb-4 text-2xl font-bold text-blue-gray-900">Your cart is empty</h4>
             <Link href="/menu-page">
-              <Button color="blue" size="lg">
+              <button className="px-6 py-3 rounded bg-blue-500 text-white text-lg font-semibold hover:bg-blue-600 transition-colors">
                 Browse Menu
-              </Button>
+              </button>
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               {cart.map((item, index) => (
-                <Card key={index} className="mb-4 overflow-hidden">
-                  <CardBody className="flex gap-4">
+                <div key={index} className="mb-4 overflow-hidden bg-white rounded-lg shadow">
+                  <div className="flex gap-4 p-4">
                     <div className="w-24 h-24 relative rounded-xl overflow-hidden">
                       <Image
                         src={item.img}
@@ -145,132 +130,120 @@ export default function CartPage() {
                     <div className="flex-grow">
                       <div className="flex justify-between items-start">
                         <div>
-                          <Typography variant="h6" color="blue-gray">
-                            {item.name}
-                          </Typography>
-                          <Typography variant="small" color="gray" className="font-normal">
-                            {item.description}
-                          </Typography>
+                          <h6 className="text-lg font-semibold text-blue-gray-900">{item.name}</h6>
+                          <p className="text-sm text-gray-500 font-normal">{item.description}</p>
                         </div>
-                        <Typography variant="h6" color="blue-gray">
-                          ₹{item.price}
-                        </Typography>
+                        <h6 className="text-lg font-semibold text-blue-gray-900">₹{item.price}</h6>
                       </div>
                       <div className="flex items-center justify-between mt-4">
                         <div className="flex items-center gap-2">
-                          <IconButton
-                            variant="text"
-                            size="sm"
+                          <button
+                            className="p-2 rounded-full hover:bg-blue-100 text-blue-gray-700 transition-colors"
+                            type="button"
                             onClick={() => updateQuantity(index, item.quantity - 1)}
                           >
                             <FiMinus className="h-4 w-4" />
-                          </IconButton>
-                          <Typography className="w-12 text-center">
-                            {item.quantity}
-                          </Typography>
-                          <IconButton
-                            variant="text"
-                            size="sm"
+                          </button>
+                          <span className="w-12 text-center inline-block">{item.quantity}</span>
+                          <button
+                            className="p-2 rounded-full hover:bg-blue-100 text-blue-gray-700 transition-colors"
+                            type="button"
                             onClick={() => updateQuantity(index, item.quantity + 1)}
                           >
                             <FiPlus className="h-4 w-4" />
-                          </IconButton>
+                          </button>
                         </div>
-                        <IconButton
-                          variant="text"
-                          color="red"
+                        <button
+                          className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
+                          type="button"
                           onClick={() => removeItem(index)}
                         >
                           <FiTrash2 className="h-4 w-4" />
-                        </IconButton>
+                        </button>
                       </div>
                     </div>
-                  </CardBody>
-                </Card>
+                  </div>
+                </div>
               ))}
             </div>
 
             <div className="lg:col-span-1">
-              <Card className="sticky top-24">
-                <CardBody>
-                  <Typography variant="h5" color="blue-gray" className="mb-4">
-                    Order Summary
-                  </Typography>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <Typography color="gray">Subtotal</Typography>
-                      <Typography color="blue-gray">₹{cartTotal}</Typography>
-                    </div>
-                    <div className="flex justify-between">
-                      <Typography color="gray">Delivery Fee</Typography>
-                      <Typography color="blue-gray">₹0</Typography>
-                    </div>
-                    <div className="border-t border-blue-gray-50 my-4"></div>
-                    <div className="flex justify-between">
-                      <Typography variant="h6">Total</Typography>
-                      <Typography variant="h6" color="blue">₹{cartTotal}</Typography>
-                    </div>
+              <div className="sticky top-24 bg-white rounded-lg shadow p-6">
+                <h5 className="mb-4 text-xl font-bold text-blue-gray-900">Order Summary</h5>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Subtotal</span>
+                    <span className="text-blue-gray-900">₹{cartTotal}</span>
                   </div>
-                  <Button
-                    color="blue"
-                    size="lg"
-                    fullWidth
-                    className="mt-6"
-                    onClick={handleCheckout}
-                  >
-                    Proceed to Checkout
-                  </Button>
-                </CardBody>
-              </Card>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Delivery Fee</span>
+                    <span className="text-blue-gray-900">₹0</span>
+                  </div>
+                  <div className="border-t border-blue-gray-50 my-4"></div>
+                  <div className="flex justify-between">
+                    <span className="text-lg font-semibold">Total</span>
+                    <span className="text-lg font-bold text-blue-600">₹{cartTotal}</span>
+                  </div>
+                </div>
+                <button
+                  className="mt-6 w-full px-6 py-3 rounded bg-blue-500 text-white text-lg font-semibold hover:bg-blue-600 transition-colors"
+                  type="button"
+                  onClick={handleCheckout}
+                >
+                  Proceed to Checkout
+                </button>
+              </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Phone Number Dialog */}
-      <Dialog open={showPhoneDialog} handler={() => setShowPhoneDialog(false)}>
-        <DialogHeader>Enter Your Phone Number</DialogHeader>
-        <DialogBody>
-          <div className="space-y-4">
-            <Typography color="gray" className="text-sm">
-              Please enter your phone number for order confirmation
-            </Typography>
-            <div className="relative">
-              <Input
-                type="tel"
-                label="Phone Number"
-                value={phoneNumber}
-                onChange={(e) => {
-                  setPhoneNumber(e.target.value);
-                  setPhoneError("");
-                }}
-                error={!!phoneError}
-                icon={<FiPhone />}
-              />
-              {phoneError && (
-                <Typography color="red" className="text-xs mt-1">
-                  {phoneError}
-                </Typography>
-              )}
+      {showPhoneDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto overflow-hidden">
+            <div className="px-6 py-4 border-b font-bold text-lg">Enter Your Phone Number</div>
+            <div className="overflow-y-auto max-h-[400px] px-6 py-4">
+              <div className="space-y-4">
+                <p className="text-gray-500 text-sm">Please enter your phone number for order confirmation</p>
+                <div className="relative">
+                  <div className="flex items-center border rounded px-3 py-2 focus-within:ring-2 focus-within:ring-blue-400">
+                    <FiPhone className="mr-2 text-gray-400" />
+                    <input
+                      type="tel"
+                      placeholder="Phone Number"
+                      className="flex-1 outline-none bg-transparent"
+                      value={phoneNumber}
+                      onChange={(e) => {
+                        setPhoneNumber(e.target.value);
+                        setPhoneError("");
+                      }}
+                    />
+                  </div>
+                  {phoneError && (
+                    <div className="text-red-500 text-xs mt-1">{phoneError}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 px-6 py-4 border-t bg-gray-50">
+              <button
+                className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors"
+                type="button"
+                onClick={() => setShowPhoneDialog(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                type="button"
+                onClick={handlePhoneSubmit}
+              >
+                Confirm Order
+              </button>
             </div>
           </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={() => setShowPhoneDialog(false)}
-            className="mr-1"
-          >
-            Cancel
-          </Button>
-          <Button color="blue" onClick={handlePhoneSubmit}>
-            Confirm Order
-          </Button>
-        </DialogFooter>
-      </Dialog>
-
-      
+        </div>
+      )}
     </>
   );
 } 

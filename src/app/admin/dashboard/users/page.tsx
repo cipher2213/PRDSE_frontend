@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardBody, Typography, Avatar, Button } from "@material-tailwind/react";
 
 interface Order {
   _id: string;
@@ -44,13 +43,13 @@ export default function UsersPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Typography variant="h3" color="blue-gray" className="mb-6">
+      <h3 className="mb-6 text-3xl font-bold text-blue-gray-900">
         Registered Users
-      </Typography>
+      </h3>
       {loading ? (
         <div>Loading users...</div>
       ) : users.length === 0 ? (
-        <Card><CardBody>No users found.</CardBody></Card>
+        <div className="bg-white rounded-lg shadow p-6 text-center text-gray-600">No users found.</div>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white">
@@ -70,9 +69,9 @@ export default function UsersPage() {
                   <tr key={user._id}>
                     <td className="py-2 px-4 border-b text-center">
                       {user.image ? (
-                        <Avatar src={user.image} alt={user.name || user.email} size="sm" />
+                        <img src={user.image} alt={user.name || user.email} className="w-8 h-8 rounded-full object-cover inline-block" />
                       ) : (
-                        <Avatar size="sm" />
+                        <div className="w-8 h-8 rounded-full bg-gray-300 inline-block" />
                       )}
                     </td>
                     <td className="py-2 px-4 border-b">{user.name || "-"}</td>
@@ -80,18 +79,19 @@ export default function UsersPage() {
                     <td className="py-2 px-4 border-b">{user.createdAt ? new Date(user.createdAt).toLocaleString() : "-"}</td>
                     <td className="py-2 px-4 border-b">₹{user.totalSpent ?? 0}</td>
                     <td className="py-2 px-4 border-b">
-                      <Button size="sm" onClick={() => setExpanded(expanded === user._id ? null : user._id)}>
+                      <button
+                        className="px-3 py-1 text-sm rounded bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                        onClick={() => setExpanded(expanded === user._id ? null : user._id)}
+                      >
                         {expanded === user._id ? "Hide" : "View"}
-                      </Button>
+                      </button>
                     </td>
                   </tr>
                   {expanded === user._id && user.orders && (
                     <tr>
                       <td colSpan={6} className="bg-gray-50">
                         <div className="p-4">
-                          <Typography variant="h6" color="blue-gray" className="mb-2">
-                            Order History
-                          </Typography>
+                          <h6 className="mb-2 text-lg font-semibold text-blue-gray-900">Order History</h6>
                           {user.orders.length === 0 ? (
                             <div>No orders found.</div>
                           ) : (

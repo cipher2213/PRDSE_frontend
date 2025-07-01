@@ -1,13 +1,6 @@
 "use client";
 
 import { Navbar, Footer } from "@/components";
-import {
-  Typography,
-  Card,
-  CardBody,
-  Button,
-  Chip,
-} from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
@@ -65,85 +58,57 @@ export default function OrderHistory() {
       <div className="min-h-screen bg-gray-50 py-32">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <Typography variant="h2" color="blue-gray" className="mb-8">
-              Your Order History
-            </Typography>
+            <h2 className="mb-8 text-3xl font-bold text-blue-gray-900">Your Order History</h2>
 
             {orders.length === 0 ? (
-              <Card>
-                <CardBody className="text-center py-12">
-                  <FiShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-                  <Typography variant="h5" color="blue-gray" className="mb-2">
-                    No Orders Yet
-                  </Typography>
-                  <Typography className="text-gray-600 mb-4">
-                    You haven't placed any orders yet.
-                  </Typography>
-                  <Button
-                    color="blue"
-                    onClick={() => router.push('/menu-page')}
-                  >
-                    Browse Menu
-                  </Button>
-                </CardBody>
-              </Card>
+              <div className="bg-white rounded-lg shadow text-center py-12">
+                <FiShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                <h5 className="mb-2 text-xl font-bold text-blue-gray-900">No Orders Yet</h5>
+                <p className="text-gray-600 mb-4">You haven't placed any orders yet.</p>
+                <button
+                  className="px-6 py-3 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors"
+                  type="button"
+                  onClick={() => router.push('/menu-page')}
+                >
+                  Browse Menu
+                </button>
+              </div>
             ) : (
               <div className="space-y-6">
                 {orders.map((order, index) => (
-                  <Card key={index} className="overflow-hidden">
-                    <CardBody>
+                  <div key={index} className="overflow-hidden bg-white rounded-lg shadow">
+                    <div className="p-8">
                       <div className="flex justify-between items-start mb-6">
                         <div>
-                          <Typography variant="h6" color="blue-gray">
-                            Order #{order.orderId}
-                          </Typography>
+                          <h6 className="text-lg font-semibold text-blue-gray-900">Order #{order.orderId}</h6>
                           <div className="flex items-center gap-2 text-gray-600 mt-1">
                             <FiClock className="h-4 w-4" />
-                            <Typography variant="small">
-                              {new Date(order.orderTime).toLocaleString()}
-                            </Typography>
+                            <span className="text-sm">{new Date(order.orderTime).toLocaleString()}</span>
                           </div>
                           <div className="flex items-center gap-2 text-gray-600 mt-1">
                             <FiPhone className="h-4 w-4" />
-                            <Typography variant="small">
-                              {order.phoneNumber}
-                            </Typography>
+                            <span className="text-sm">{order.phoneNumber}</span>
                           </div>
                         </div>
-                        <Chip
-                          value="Completed"
-                          color="green"
-                        />
+                        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">Completed</span>
                       </div>
-
                       <div className="border-t border-b border-gray-200 py-4 mb-4">
                         {order.items.map((item, itemIndex) => (
                           <div key={itemIndex} className="flex justify-between items-center mb-2">
                             <div className="flex items-center gap-2">
-                              <Typography color="blue-gray">
-                                {item.quantity}x
-                              </Typography>
-                              <Typography color="blue-gray">
-                                {item.name}
-                              </Typography>
+                              <span className="text-blue-gray-900">{item.quantity}x</span>
+                              <span className="text-blue-gray-900">{item.name}</span>
                             </div>
-                            <Typography color="blue-gray">
-                              {item.price}
-                            </Typography>
+                            <span className="text-blue-gray-900">{item.price}</span>
                           </div>
                         ))}
                       </div>
-
                       <div className="flex justify-between items-center">
-                        <Typography variant="h6" color="blue-gray">
-                          Total
-                        </Typography>
-                        <Typography variant="h6" color="blue">
-                          ₹{order.total}
-                        </Typography>
+                        <span className="text-lg font-semibold text-blue-gray-900">Total</span>
+                        <span className="text-lg font-bold text-blue-600">₹{order.total}</span>
                       </div>
-                    </CardBody>
-                  </Card>
+                    </div>
+                  </div>
                 ))}
               </div>
             )}

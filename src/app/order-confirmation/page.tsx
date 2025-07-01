@@ -1,11 +1,6 @@
 "use client";
 
 import { Navbar, Footer } from "@/components";
-import {
-  Card,
-  CardBody,
-  Button,
-} from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
@@ -114,40 +109,26 @@ export default function OrderConfirmation() {
               <div className="flex justify-center mb-6">
                 <FiCheckCircle className="h-20 w-20 text-green-500" />
               </div>
-              <Typography variant="h2" color="blue-gray" className="mb-4">
-                Order Confirmed!
-              </Typography>
-              <Typography variant="lead" className="text-gray-600">
-                Thank you for ordering at Paradise Cafe
-              </Typography>
+              <h2 className="mb-4 text-3xl font-bold text-blue-gray-900">Order Confirmed!</h2>
+              <p className="text-lg text-gray-600">Thank you for ordering at Paradise Cafe</p>
             </div>
 
-            <Card className="mb-8">
-              <CardBody>
-                <Typography variant="h6" color="blue-gray" className="mb-4">
-                  Order ID: {orderDetails.orderId}
-                </Typography>
-                
+            <div className="mb-8 bg-white rounded-lg shadow">
+              <div className="p-8">
+                <h6 className="mb-4 text-lg font-semibold text-blue-gray-900">Order ID: {orderDetails.orderId}</h6>
                 <div className="bg-amber-50 p-6 rounded-lg mb-6 border border-amber-200">
-                  <Typography className="text-amber-900 font-medium text-center">
-                    Please proceed to the counter to make your payment.
-                  </Typography>
+                  <p className="text-amber-900 font-medium text-center">Please proceed to the counter to make your payment.</p>
                 </div>
-
                 <div className="mt-6 space-y-4">
                   <Link href="/order-history">
-                    <Button color="blue" fullWidth>
-                      View Order History
-                    </Button>
+                    <button className="w-full px-6 py-3 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors">View Order History</button>
                   </Link>
                   <Link href="/menu-page">
-                    <Button color="blue" variant="outlined" fullWidth>
-                      Order More
-                    </Button>
+                    <button className="w-full px-6 py-3 rounded border border-blue-500 text-blue-500 font-semibold hover:bg-blue-50 transition-colors">Order More</button>
                   </Link>
                 </div>
-              </CardBody>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>

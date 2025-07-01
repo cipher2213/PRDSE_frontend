@@ -1,13 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Typography,
-  Card,
-  CardHeader,
-  CardBody,
-  Avatar,
-} from "@material-tailwind/react";
 
 interface EventContentCardProps {
   title: string;
@@ -22,16 +15,8 @@ export function EventContentCard({
   img,
 }: EventContentCardProps) {
   return (
-    <Card
-      color="transparent"
-      shadow={false}
-      className="lg:!flex-row mb-10 lg:items-end"
-    >
-      <CardHeader
-        floated={false}
-        shadow={false}
-        className="h-[32rem] max-w-[28rem] shrink-0"
-      >
+    <div className="lg:flex lg:items-end mb-10">
+      <div className="h-[32rem] max-w-[28rem] shrink-0 relative">
         <Image
           width={768}
           height={768}
@@ -39,20 +24,13 @@ export function EventContentCard({
           alt="testimonial image"
           className="h-full w-full object-cover"
         />
-      </CardHeader>
-      <CardBody className="col-span-full lg:col-span-3">
-        <Typography variant="h6" color="blue-gray" className="mb-4">
-          {panel}
-        </Typography>
-        <Typography variant="h2" color="blue-gray" className="mb-4 font-medium">
-          {title}
-        </Typography>
-        <Typography className="mb-12 md:w-8/12 font-medium !text-gray-500">
-          {des}
-        </Typography>
-        
-      </CardBody>
-    </Card>
+      </div>
+      <div className="col-span-full lg:col-span-3 flex-1 p-8">
+        <h6 className="mb-4 text-lg font-semibold text-blue-gray-900">{panel}</h6>
+        <h2 className="mb-4 text-3xl font-medium text-blue-gray-900">{title}</h2>
+        <p className="mb-12 md:w-8/12 font-medium text-gray-500">{des}</p>
+      </div>
+    </div>
   );
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { Typography, Card } from "@material-tailwind/react";
 interface StatsCardProps {
   count: string;
   title: string;
@@ -8,14 +7,10 @@ interface StatsCardProps {
 
 export function StatsCard({ count, title }: StatsCardProps) {
   return (
-    <Card color="transparent" shadow={false} className="text-center">
-      <Typography variant="h1" className="font-bold" color="blue-gray">
-        {count}
-      </Typography>
-      <Typography variant="h6" color="blue-gray" className="mt-1 font-medium">
-        {title}
-      </Typography>
-    </Card>
+    <div className="text-center bg-transparent">
+      <h1 className="font-bold text-4xl text-blue-gray-900">{count}</h1>
+      <h6 className="mt-1 font-medium text-lg text-blue-gray-900">{title}</h6>
+    </div>
   );
 }
 

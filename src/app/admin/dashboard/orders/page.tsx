@@ -1,14 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Card,
-  CardBody,
-  Typography,
-  Button,
-  Chip,
-  IconButton,
-} from "@material-tailwind/react";
 import { FiRefreshCw } from "react-icons/fi";
 import toast from "react-hot-toast";
 
@@ -101,97 +93,76 @@ export default function OrdersManagement() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <Typography variant="h3" color="blue-gray">
+        <h3 className="text-blue-gray-900 text-3xl font-bold">
           Orders Management
-        </Typography>
-        <IconButton variant="text" onClick={fetchOrders}>
+        </h3>
+        <button
+          className="p-2 rounded-full hover:bg-blue-100 text-blue-gray-700 transition-colors"
+          onClick={fetchOrders}
+          title="Refresh"
+        >
           <FiRefreshCw className="h-4 w-4" />
-        </IconButton>
+        </button>
       </div>
 
       {loading ? (
         <div className="text-center py-12">Loading orders...</div>
       ) : orders.length === 0 ? (
-        <Card>
-          <CardBody className="text-center py-12">
-            <Typography variant="h6" color="blue-gray">
-              No orders found
-            </Typography>
-          </CardBody>
-        </Card>
+        <div className="bg-white rounded-lg shadow p-8 text-center">
+          <h6 className="text-blue-gray-900 text-lg font-semibold mb-2">No orders found</h6>
+        </div>
       ) : (
         <div className="grid gap-6">
           {orders.map((order) => (
-            <Card key={order._id} className="overflow-hidden">
-              <CardBody>
+            <div key={order._id} className="overflow-hidden bg-white rounded-lg shadow">
+              <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <Typography variant="h6" color="blue-gray">
-                      Order #{order._id.slice(-6)}
-                    </Typography>
-                    <Typography color="gray" className="text-sm">
-                      {formatDate(order.orderTime)}
-                    </Typography>
+                    <h6 className="text-blue-gray-900 text-lg font-semibold">Order #{order._id.slice(-6)}</h6>
+                    <p className="text-gray-500 text-sm">{formatDate(order.orderTime)}</p>
                   </div>
-                  <Chip
-                    color={getStatusColor(order.status)}
-                    value={order.status}
-                    className="capitalize"
-                  />
+                  <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold capitalize bg-${getStatusColor(order.status)}-100 text-${getStatusColor(order.status)}-800`}>
+                    {order.status}
+                  </span>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <Typography variant="small" color="blue-gray" className="font-medium mb-1">
-                      Customer Details
-                    </Typography>
-                    <Typography color="gray" className="text-sm">
-                      Name: {order.customerName}
-                    </Typography>
-                    <Typography color="gray" className="text-sm">
-                      Phone: {order.phoneNumber}
-                    </Typography>
-                    <Typography color="gray" className="text-sm">
-                      Table: {order.tableId}
-                    </Typography>
+                    <p className="font-medium text-blue-gray-900 mb-1">Customer Details</p>
+                    <p className="text-gray-500 text-sm">Name: {order.customerName}</p>
+                    <p className="text-gray-500 text-sm">Phone: {order.phoneNumber}</p>
+                    <p className="text-gray-500 text-sm">Table: {order.tableId}</p>
                   </div>
 
                   <div>
-                    <Typography variant="small" color="blue-gray" className="font-medium mb-1">
-                      Order Items
-                    </Typography>
+                    <p className="font-medium text-blue-gray-900 mb-1">Order Items</p>
                     {order.items.map((item, index) => (
-                      <Typography key={index} color="gray" className="text-sm">
+                      <p key={index} className="text-gray-500 text-sm">
                         {item.quantity}x {item.name} - ₹{item.price * item.quantity}
-                      </Typography>
+                      </p>
                     ))}
-                    <Typography variant="h6" color="blue" className="mt-2">
-                      Total: ₹{order.total}
-                    </Typography>
+                    <h6 className="text-blue-600 text-lg font-bold mt-2">Total: ₹{order.total}</h6>
                   </div>
                 </div>
 
                 {order.status === "pending" && (
                   <div className="flex gap-2 mt-4">
-                    <Button
-                      color="green"
-                      size="sm"
+                    <button
+                      className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors text-sm"
                       onClick={() => updateOrderStatus(order._id, "completed")}
                     >
                       Complete Order
-                    </Button>
-                    <Button
-                      color="red"
-                      size="sm"
-                      variant="outlined"
+                    </button>
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors text-sm border border-red-500"
                       onClick={() => updateOrderStatus(order._id, "cancelled")}
                     >
                       Cancel Order
-                    </Button>
+                    </button>
                   </div>
                 )}
-              </CardBody>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       )}

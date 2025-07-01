@@ -1,21 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Button,
-  IconButton,
-  Input,
-  Select,
-  Option,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
 import { FiEdit2, FiTrash2, FiPlus, FiUpload } from "react-icons/fi";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -47,12 +32,34 @@ export default function MenuManagement() {
   });
 
   const categories = [
-    "starters",
-    "main_course",
-    "desserts",
-    "beverages",
-    "snacks",
-    "others",
+    "PARADISE SPECIAL SHAKE",
+    "MAGGIE",
+    "BURGER",
+    "FRIES",
+    "SANDWICH",
+    "PASTA",
+    "RICE",
+    "SALAD",
+    "PASSION",
+    "JAMUN SHOT",
+    "COMBO",
+    "ICE CREAM",
+    "BROWNIE",
+    "COLD COFFEE",
+    "HOT COFFEE",
+    "THICK",
+    "COLD DRINKS",
+    "CHINESE NOODLES",
+    "MANCHURIAN",
+    "PAV BHAJI",
+    "SNACKS",
+    "RICE",
+    "MOCKTAIL",
+    "SUNDAE",
+    "MOMOS",
+    "FRIED MOMOS",
+    "PIZZA",
+    "CHAT-BHANDAR"
   ];
 
   useEffect(() => {
@@ -284,170 +291,182 @@ export default function MenuManagement() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <Typography variant="h4" color="blue-gray">
+        <h4 className="text-blue-gray-900 text-2xl font-bold">
           Menu Management
-        </Typography>
-        <Button
-          className="flex items-center gap-2"
+        </h4>
+        <button
+          className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
           onClick={() => setShowAddDialog(true)}
         >
           <FiPlus className="h-4 w-4" /> Add New Item
-        </Button>
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {menuItems.map((item) => (
-          <Card key={item._id} className="overflow-hidden">
-            <CardHeader floated={false} className="h-48 relative">
+          <div key={item._id} className="overflow-hidden bg-white rounded-lg shadow">
+            <div className="h-48 relative">
               <Image
                 src={item.img}
                 alt={item.name}
                 fill
                 className="object-cover"
               />
-            </CardHeader>
-            <CardBody>
+            </div>
+            <div className="p-4">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <Typography variant="h5" color="blue-gray">
-                    {item.name}
-                  </Typography>
-                  <Typography color="gray" className="text-sm capitalize">
-                    {item.category.replace(/_/g, " ")}
-                  </Typography>
+                  <h5 className="text-blue-gray-900 text-lg font-bold">{item.name}</h5>
+                  <p className="text-gray-500 text-sm capitalize">{item.category.replace(/_/g, " ")}</p>
                 </div>
-                <Typography variant="h6" color="blue-gray">
-                  ₹{item.price}
-                </Typography>
+                <h6 className="text-blue-gray-900 text-base font-semibold">₹{item.price}</h6>
               </div>
-              <Typography color="gray" className="mb-4">
-                {item.description}
-              </Typography>
+              <p className="text-gray-500 mb-4">{item.description}</p>
               <div className="flex justify-end gap-2">
-                <IconButton
-                  variant="text"
-                  color="blue-gray"
+                <button
+                  className="p-2 rounded-full hover:bg-blue-100 text-blue-gray-700 transition-colors"
                   onClick={() => openEditDialog(item)}
+                  title="Edit"
                 >
                   <FiEdit2 className="h-4 w-4" />
-                </IconButton>
-                <IconButton
-                  variant="text"
-                  color="red"
+                </button>
+                <button
+                  className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
                   onClick={() => handleDeleteItem(item._id)}
+                  title="Delete"
                 >
                   <FiTrash2 className="h-4 w-4" />
-                </IconButton>
+                </button>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
 
-      {/* Add Item Dialog */}
-      <Dialog open={showAddDialog || showEditDialog} handler={() => (showAddDialog ? setShowAddDialog(false) : setShowEditDialog(false))} size="md">
-        <DialogHeader>{showAddDialog ? "Add New Menu Item" : "Edit Menu Item"}</DialogHeader>
-        <DialogBody divider className="overflow-y-auto max-h-[600px]">
-          <div className="space-y-4">
-            <Input
-              label="Name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            />
-            <Input
-              label="Description"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            />
-            <Input
-              label="Price"
-              type="number"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-            />
-            <Select
-              label="Category"
-              value={formData.category}
-              onChange={(value) => setFormData({ ...formData, category: value || "" })}
-            >
-              {categories.map((category) => (
-                <Option key={category} value={category}>
-                  {category.replace(/_/g, " ")}
-                </Option>
-              ))}
-            </Select>
-            
-            {/* Image Upload Section */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <FiUpload className="w-10 h-10 mb-3 text-gray-400" />
-                    <p className="mb-2 text-sm text-gray-500">
-                      <span className="font-semibold">Click to upload</span> or drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500">PNG, JPG or WEBP (MAX. 5MB)</p>
-                  </div>
+      {/* Add/Edit Item Modal */}
+      {(showAddDialog || showEditDialog) && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto overflow-hidden">
+            <div className="px-6 py-4 border-b font-bold text-lg">
+              {showAddDialog ? "Add New Menu Item" : "Edit Menu Item"}
+            </div>
+            <div className="overflow-y-auto max-h-[600px] px-6 py-4">
+              <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Name</label>
                   <input
-                    ref={fileInputRef}
-                    type="file"
-                    className="hidden"
-                    accept="image/*"
-                    onChange={handleImageChange}
+                    type="text"
+                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    value={formData.name}
+                    onChange={e => setFormData({ ...formData, name: e.target.value })}
                   />
-                </label>
-              </div>
-              
-              {imagePreview && (
-                <div className="relative w-full h-48 mt-4">
-                  <Image
-                    src={imagePreview}
-                    alt="Preview"
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                  <button
-                    onClick={() => {
-                      setSelectedImage(null);
-                      setImagePreview("");
-                      if (fileInputRef.current) {
-                        fileInputRef.current.value = "";
-                      }
-                    }}
-                    className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
-                  >
-                    ×
-                  </button>
                 </div>
-              )}
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Description</label>
+                  <input
+                    type="text"
+                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    value={formData.description}
+                    onChange={e => setFormData({ ...formData, description: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Price</label>
+                  <input
+                    type="number"
+                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    value={formData.price}
+                    onChange={e => setFormData({ ...formData, price: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Category</label>
+                  <select
+                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    value={formData.category}
+                    onChange={e => setFormData({ ...formData, category: e.target.value })}
+                  >
+                    <option value="">Select category</option>
+                    {categories.map(category => (
+                      <option key={category} value={category}>
+                        {category.replace(/_/g, " ")}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {/* Image Upload Section */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center w-full">
+                    <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        <FiUpload className="w-10 h-10 mb-3 text-gray-400" />
+                        <p className="mb-2 text-sm text-gray-500">
+                          <span className="font-semibold">Click to upload</span> or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500">PNG, JPG or WEBP (MAX. 5MB)</p>
+                      </div>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        className="hidden"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                      />
+                    </label>
+                  </div>
+                  {imagePreview && (
+                    <div className="relative w-full h-48 mt-4">
+                      <Image
+                        src={imagePreview}
+                        alt="Preview"
+                        fill
+                        className="object-cover rounded-lg"
+                      />
+                      <button
+                        onClick={() => {
+                          setSelectedImage(null);
+                          setImagePreview("");
+                          if (fileInputRef.current) {
+                            fileInputRef.current.value = "";
+                          }
+                        }}
+                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                        type="button"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </form>
+            </div>
+            <div className="flex justify-end gap-2 px-6 py-4 border-t bg-gray-50">
+              <button
+                className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors"
+                onClick={() => {
+                  if (showAddDialog) {
+                    setShowAddDialog(false);
+                  } else {
+                    setShowEditDialog(false);
+                  }
+                  setSelectedImage(null);
+                  setImagePreview("");
+                }}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className={`px-4 py-2 rounded text-white transition-colors ${showAddDialog ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
+                onClick={showAddDialog ? handleAddItem : handleEditItem}
+                type="button"
+              >
+                {showAddDialog ? "Add Item" : "Update Item"}
+              </button>
             </div>
           </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={() => {
-              if (showAddDialog) {
-                setShowAddDialog(false);
-              } else {
-                setShowEditDialog(false);
-              }
-              setSelectedImage(null);
-              setImagePreview("");
-            }}
-            className="mr-1"
-          >
-            Cancel
-          </Button>
-          <Button
-            color={showAddDialog ? "green" : "blue"}
-            onClick={showAddDialog ? handleAddItem : handleEditItem}
-          >
-            {showAddDialog ? "Add Item" : "Update Item"}
-          </Button>
-        </DialogFooter>
-      </Dialog>
+        </div>
+      )}
     </div>
   );
 } 

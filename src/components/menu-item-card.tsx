@@ -1,14 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-tailwind/react";
 import { useState } from "react";
 import { FiMinus, FiPlus, FiShoppingCart } from 'react-icons/fi'; // Install react-icons if not already installed
 import toast from "react-hot-toast";
@@ -34,12 +26,12 @@ export function MenuItemCard({ name, description, price, img, onAddToCart }: Men
   };
 
   return (
-    <Card 
-      className="border border-blue-gray-100 shadow-lg transform transition-all duration-300 hover:scale-105"
+    <div 
+      className="border border-blue-gray-100 shadow-lg transform transition-all duration-300 hover:scale-105 rounded-xl bg-white"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <CardHeader floated={false} shadow={false} className="h-56 relative overflow-hidden">
+      <div className="h-56 relative overflow-hidden rounded-t-xl">
         <Image
           src={img}
           alt={name}
@@ -48,59 +40,44 @@ export function MenuItemCard({ name, description, price, img, onAddToCart }: Men
           className="h-full w-full object-cover transform transition-transform duration-300 hover:scale-110"
         />
         <div className={`absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 flex items-center justify-center ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-          <Typography variant="h6" color="white" className="text-shadow">
-            Click to Order
-          </Typography>
+          <span className="text-white text-lg font-semibold text-shadow">Click to Order</span>
         </div>
-      </CardHeader>
-      <CardBody className="text-center p-6">
+      </div>
+      <div className="text-center p-6">
         <div className="flex justify-between items-center mb-3">
-          <Typography variant="h5" color="blue-gray" className="font-semibold">
-            {name}
-          </Typography>
-          <Typography variant="h5" color="blue-gray" className="font-bold text-blue-600">
-            {price}
-          </Typography>
+          <span className="font-semibold text-lg text-blue-gray-900">{name}</span>
+          <span className="font-bold text-lg text-blue-600">{price}</span>
         </div>
-        <Typography className="text-gray-600 font-normal mb-4">
-          {description}
-        </Typography>
-        
+        <p className="text-gray-600 font-normal mb-4">{description}</p>
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex items-center justify-center gap-4 bg-gray-50 p-2 rounded-full">
-            <IconButton
-              variant="text"
-              size="sm"
+            <button
+              className="p-2 rounded-full hover:bg-blue-gray-50 text-blue-gray-900"
+              type="button"
               onClick={() => setQuantity(q => Math.max(1, q - 1))}
-              className="rounded-full hover:bg-blue-gray-50"
             >
               <FiMinus className="h-4 w-4" />
-            </IconButton>
-            <Typography className="w-16 text-center font-medium">
-              {quantity}
-            </Typography>
-            <IconButton
-              variant="text"
-              size="sm"
+            </button>
+            <span className="w-16 text-center font-medium">{quantity}</span>
+            <button
+              className="p-2 rounded-full hover:bg-blue-gray-50 text-blue-gray-900"
+              type="button"
               onClick={() => setQuantity(q => q + 1)}
-              className="rounded-full hover:bg-blue-gray-50"
             >
               <FiPlus className="h-4 w-4" />
-            </IconButton>
+            </button>
           </div>
-          <Button
-            color="blue"
-            size="lg"
-            fullWidth
+          <button
+            className="flex items-center justify-center gap-2 rounded-full shadow-md hover:shadow-lg transform transition-all duration-200 hover:-translate-y-1 bg-blue-500 text-white text-lg font-semibold px-6 py-3 w-full"
+            type="button"
             onClick={handleAddToCart}
-            className="flex items-center justify-center gap-2 rounded-full shadow-md hover:shadow-lg transform transition-all duration-200 hover:-translate-y-1"
           >
             <FiShoppingCart className="h-5 w-5" />
             Add to Cart
-          </Button>
+          </button>
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 }
 

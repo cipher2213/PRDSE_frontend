@@ -1,14 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
-} from "@material-tailwind/react";
+
 import {
   FiHome,
   FiMenu,
@@ -52,37 +47,38 @@ export default function AdminDashboardLayout({
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg">
         <div className="p-4 border-b">
-          <Typography variant="h5" color="blue-gray">
+          <h5 className="text-blue-gray-900 text-xl font-bold">
             Admin Panel
-          </Typography>
+          </h5>
         </div>
-        <List>
+        <ul className="mt-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <Link href={item.href} key={item.href}>
-                <ListItem selected={pathname === item.href}>
-                  <ListItemPrefix>
-                    <Icon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  {item.label}
-                </ListItem>
-              </Link>
+              <li key={item.href}>
+                <Link href={item.href}>
+                  <button
+                    className={`flex items-center w-full px-4 py-2 text-left rounded transition-colors ${pathname === item.href ? 'bg-blue-50 text-blue-700 font-semibold' : 'hover:bg-gray-100 text-gray-700'}`}
+                  >
+                    <span className="mr-3"><Icon className="h-5 w-5" /></span>
+                    {item.label}
+                  </button>
+                </Link>
+              </li>
             );
           })}
-          <ListItem
-            className="text-red-500 hover:bg-red-50 focus:bg-red-50 cursor-pointer"
-            onClick={() => {
-              // Handle logout
-              router.push("/admin/signin");
-            }}
-          >
-            <ListItemPrefix>
-              <FiLogOut className="h-5 w-5" />
-            </ListItemPrefix>
-            Logout
-          </ListItem>
-        </List>
+          <li>
+            <button
+              className="flex items-center w-full px-4 py-2 text-left rounded text-red-500 hover:bg-red-50 focus:bg-red-50 cursor-pointer mt-2"
+              onClick={() => {
+                router.push("/admin/signin");
+              }}
+            >
+              <span className="mr-3"><FiLogOut className="h-5 w-5" /></span>
+              Logout
+            </button>
+          </li>
+        </ul>
       </div>
 
       {/* Main Content */}
