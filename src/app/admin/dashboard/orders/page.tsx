@@ -91,9 +91,9 @@ export default function OrdersManagement() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-blue-gray-900 text-3xl font-bold">
+    <div className="container mx-auto px-2 sm:px-4 py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+        <h3 className="text-blue-gray-900 text-2xl sm:text-3xl font-bold text-center sm:text-left">
           Orders Management
         </h3>
         <button
@@ -116,7 +116,7 @@ export default function OrdersManagement() {
           {orders.map((order) => (
             <div key={order._id} className="overflow-hidden bg-white rounded-lg shadow">
               <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-2">
                   <div>
                     <h6 className="text-blue-gray-900 text-lg font-semibold">Order #{order._id.slice(-6)}</h6>
                     <p className="text-gray-500 text-sm">{formatDate(order.orderTime)}</p>
@@ -126,7 +126,7 @@ export default function OrdersManagement() {
                   </span>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <p className="font-medium text-blue-gray-900 mb-1">Customer Details</p>
                     <p className="text-gray-500 text-sm">Name: {order.customerName}</p>
@@ -146,7 +146,7 @@ export default function OrdersManagement() {
                 </div>
 
                 {order.status === "pending" && (
-                  <div className="flex gap-2 mt-4">
+                  <div className="flex flex-col sm:flex-row gap-2 mt-4">
                     <button
                       className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors text-sm"
                       onClick={() => updateOrderStatus(order._id, "completed")}
