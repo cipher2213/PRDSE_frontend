@@ -42,8 +42,8 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h3 className="mb-6 text-3xl font-bold text-blue-gray-900">
+    <div className="container mx-auto px-2 sm:px-4 py-8">
+      <h3 className="mb-6 text-2xl sm:text-3xl font-bold text-blue-gray-900 text-center sm:text-left">
         Registered Users
       </h3>
       {loading ? (
@@ -52,15 +52,15 @@ export default function UsersPage() {
         <div className="bg-white rounded-lg shadow p-6 text-center text-gray-600">No users found.</div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white">
+          <table className="min-w-full bg-white text-xs sm:text-sm">
             <thead>
               <tr>
-                <th className="py-2 px-4 border-b">Avatar</th>
-                <th className="py-2 px-4 border-b">Name</th>
-                <th className="py-2 px-4 border-b">Email</th>
-                <th className="py-2 px-4 border-b">Signup Date</th>
-                <th className="py-2 px-4 border-b">Total Spent</th>
-                <th className="py-2 px-4 border-b">Order History</th>
+                <th className="py-2 px-2 sm:px-4 border-b">Avatar</th>
+                <th className="py-2 px-2 sm:px-4 border-b">Name</th>
+                <th className="py-2 px-2 sm:px-4 border-b">Email</th>
+                <th className="py-2 px-2 sm:px-4 border-b">Signup Date</th>
+                <th className="py-2 px-2 sm:px-4 border-b">Total Spent</th>
+                <th className="py-2 px-2 sm:px-4 border-b">Order History</th>
               </tr>
             </thead>
             <tbody>
