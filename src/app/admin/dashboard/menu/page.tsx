@@ -291,6 +291,13 @@ export default function MenuManagement() {
   return (
     <div className="min-h-screen bg-gray-100 py-6 px-2 sm:px-6 lg:px-8">
       <h3 className="text-2xl sm:text-3xl font-bold text-blue-gray-900 mb-6 text-center sm:text-left">Menu Management</h3>
+      <button
+        className="flex items-center gap-2 px-4 py-2 mb-4 rounded bg-green-500 text-white hover:bg-green-600 transition-colors"
+        onClick={() => setShowAddDialog(true)}
+      >
+        <FiPlus className="h-5 w-5" />
+        Add Item
+      </button>
       {loading ? (
         <div className="text-center py-12">Loading menu items...</div>
       ) : menuItems.length === 0 ? (
