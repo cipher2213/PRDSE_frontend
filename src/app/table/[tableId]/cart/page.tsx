@@ -112,6 +112,9 @@ export default function TableCart() {
         body: JSON.stringify(order)
       });
 
+      // Always clear the cart after an order attempt
+      localStorage.removeItem(`table_${tableId}_cart`);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -120,7 +123,6 @@ export default function TableCart() {
       
       if (data.success) {
         toast.success('Order placed successfully!');
-        localStorage.removeItem(`table_${tableId}_cart`);
         router.push(`/table/${tableId}/order-success`);
       } else {
         toast.error(data.message || 'Failed to place order');
