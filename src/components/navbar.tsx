@@ -104,12 +104,6 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-4">
             {!session ? (
               <>
-                <button
-                  onClick={() => signIn("google")}
-                  className="px-4 py-2 text-sm font-medium"
-                >
-                  Sign In with Google
-                </button>
                 <Link
                   href="/admin/signin"
                   className="px-4 py-2 text-sm font-medium border rounded-md hover:bg-white hover:text-gray-900 transition-colors"
@@ -158,12 +152,6 @@ export function Navbar() {
 
               {!session ? (
                 <>
-                  <button
-                    onClick={() => signIn("google")}
-                    className="block w-full text-left px-3 py-2"
-                  >
-                    Sign In with Google
-                  </button>
                   <Link
                     href="/admin/signin"
                     className="block w-full text-left px-3 py-2"
