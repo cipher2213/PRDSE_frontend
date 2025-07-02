@@ -26,22 +26,10 @@ function Hero({ tableId, onViewMenu }: HeroProps) {
   }, []);
 
   const handleMenuClick = () => {
-    if (!session) {
-      toast.error('Please sign in to view the menu', {
-        duration: 3000,
-        position: 'top-center',
-        style: {
-          background: '#f44336',
-          color: '#fff',
-          padding: '16px',
-        },
-      });
+    if (tableId && onViewMenu) {
+      onViewMenu();
     } else {
-      if (tableId && onViewMenu) {
-        onViewMenu();
-      } else {
-        router.push('/menu-page');
-      }
+      router.push('/menu-page');
     }
   };
 
