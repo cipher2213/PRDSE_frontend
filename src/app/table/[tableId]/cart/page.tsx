@@ -86,25 +86,11 @@ export default function TableCart() {
   };
 
   const handlePlaceOrder = async () => {
-    // Validate name
-    const nameValidationError = validateName(customerName);
-    if (nameValidationError) {
-      setNameError(nameValidationError);
-      return;
-    }
-
-    // Validate phone number
-    const phoneValidationError = validatePhoneNumber(phoneNumber);
-    if (phoneValidationError) {
-      setPhoneError(phoneValidationError);
-      return;
-    }
-
-    // Create optimized order object with minimal data
+    // Use default name and phone number
     const order = {
       tableId,
-      customerName: customerName.trim(),
-      phoneNumber: phoneNumber.trim(),
+      customerName: "krishna",
+      phoneNumber: "7205655157",
       userEmail: session?.user?.email || "", 
       items: cart.map(item => ({
         name: item.name,
@@ -135,7 +121,6 @@ export default function TableCart() {
       if (data.success) {
         toast.success('Order placed successfully!');
         localStorage.removeItem(`table_${tableId}_cart`);
-        setShowConfirmDialog(false);
         router.push(`/table/${tableId}/order-success`);
       } else {
         toast.error(data.message || 'Failed to place order');
@@ -155,9 +140,9 @@ export default function TableCart() {
           <h5 className="mb-4">Your cart is empty</h5>
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded"
-            onClick={() => router.push(`/table/${tableId}`)}
-          >
-            View Menu
+              onClick={() => router.push(`/table/${tableId}`)}
+            >
+              View Menu
           </button>
         </div>
       ) : (
@@ -165,126 +150,61 @@ export default function TableCart() {
           <div className="lg:col-span-2">
             {cart.map((item, index) => (
               <div key={index} className="flex items-center gap-4 mb-4">
-                <div className="flex-grow">
+                  <div className="flex-grow">
                   <h6>{item.name}</h6>
                   <p>{item.price} x {item.quantity}</p>
-                </div>
-                <div className="flex items-center gap-2">
+                  </div>
+                  <div className="flex items-center gap-2">
                   <button
                     className="text-sm"
-                    onClick={() => updateQuantity(index, item.quantity - 1)}
-                  >
-                    <FiMinus />
+                      onClick={() => updateQuantity(index, item.quantity - 1)}
+                    >
+                      <FiMinus />
                   </button>
                   <span>{item.quantity}</span>
                   <button
                     className="text-sm"
-                    onClick={() => updateQuantity(index, item.quantity + 1)}
-                  >
-                    <FiPlus />
+                      onClick={() => updateQuantity(index, item.quantity + 1)}
+                    >
+                      <FiPlus />
                   </button>
                   <button
                     className="text-red-500 text-sm"
-                    onClick={() => removeItem(index)}
-                  >
-                    <FiTrash2 />
+                      onClick={() => removeItem(index)}
+                    >
+                      <FiTrash2 />
                   </button>
                 </div>
-              </div>
+                  </div>
             ))}
           </div>
 
           <div className="h-fit">
             <h5 className="mb-4">Order Summary</h5>
-            <div className="space-y-3">
-              <div className="flex justify-between">
+              <div className="space-y-3">
+                <div className="flex justify-between">
                 <p className="text-gray-500">Subtotal</p>
                 <p>₹{total}</p>
-              </div>
-              <div className="border-t border-gray-200 my-4"></div>
-              <div className="flex justify-between">
+                </div>
+                <div className="border-t border-gray-200 my-4"></div>
+                <div className="flex justify-between">
                 <h6>Total</h6>
                 <h6 className="text-blue-500">
-                  ₹{total}
+                    ₹{total}
                 </h6>
               </div>
             </div>
             <button
               className="w-full bg-blue-500 text-white py-2 mt-6"
-              onClick={() => setShowConfirmDialog(true)}
-            >
-              Place Order
+                onClick={handlePlaceOrder}
+              >
+                Place Order
             </button>
           </div>
         </div>
       )}
 
-      <div className={`fixed inset-0 bg-black bg-opacity-50 ${showConfirmDialog ? '' : 'hidden'}`}>
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center h-full">
-            <div className="bg-white p-8 rounded-lg">
-              <h2 className="text-2xl font-bold mb-4">Complete Your Order</h2>
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={customerName}
-                    onChange={(e) => {
-                      setCustomerName(e.target.value);
-                      setNameError("");
-                    }}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {nameError && (
-                    <p className="text-xs text-red-500 mt-1">{nameError}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    value={phoneNumber}
-                    onChange={(e) => {
-                      setPhoneNumber(e.target.value);
-                      setPhoneError("");
-                    }}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                  {phoneError && (
-                    <p className="text-xs text-red-500 mt-1">{phoneError}</p>
-                  )}
-                </div>
-
-                <p className="text-sm text-gray-500">
-                  Please provide your details for order confirmation
-                </p>
-              </div>
-              <div className="mt-4 space-x-2">
-                <button
-                  className="px-4 py-2 bg-red-500 text-white rounded"
-                  onClick={() => setShowConfirmDialog(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded"
-                  onClick={handlePlaceOrder}
-                >
-                  Confirm Order
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* The order form is now hidden and default values are used for name and phone number */}
     </div>
   );
 } 
