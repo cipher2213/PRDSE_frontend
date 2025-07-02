@@ -17,6 +17,7 @@ interface OrderHistoryItem {
   orderTime: string;
   userEmail: string;
   phoneNumber: string;
+  status?: string;
 }
 
 export default function OrderHistory() {
@@ -62,15 +63,15 @@ export default function OrderHistory() {
 
             {orders.length === 0 ? (
               <div className="bg-white rounded-lg shadow text-center py-12">
-                <FiShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                  <FiShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-4" />
                 <h5 className="mb-2 text-xl font-bold text-blue-gray-900">No Orders Yet</h5>
                 <p className="text-gray-600 mb-4">You haven't placed any orders yet.</p>
                 <button
                   className="px-6 py-3 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors"
                   type="button"
-                  onClick={() => router.push('/menu-page')}
-                >
-                  Browse Menu
+                    onClick={() => router.push('/menu-page')}
+                  >
+                    Browse Menu
                 </button>
               </div>
             ) : (
@@ -90,7 +91,11 @@ export default function OrderHistory() {
                             <span className="text-sm">{order.phoneNumber}</span>
                           </div>
                         </div>
-                        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">Completed</span>
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold 
+                          ${order.status === 'completed' ? 'bg-green-100 text-green-800' : order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}
+                        >
+                          {order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Pending'}
+                        </span>
                       </div>
                       <div className="border-t border-b border-gray-200 py-4 mb-4">
                         {order.items.map((item, itemIndex) => (
