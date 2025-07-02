@@ -46,7 +46,7 @@ const NAV_MENU = [
   { name: "About", icon: UserCircleIcon, href: "/#about" },
   { name: "Menu", icon: ShoppingBagIcon, href: "/menu-page" },
   { name: "Contact", icon: PhoneIcon, href: "/#contact" },
-  { name: "Order History", icon: ClockIcon, href: "/order-history" },
+  // { name: "Order History", icon: ClockIcon, href: "/order-history" }, // Hidden
 ];
 
 export function Navbar() {
