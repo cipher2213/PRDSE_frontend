@@ -129,8 +129,6 @@ export default function OrdersManagement() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <p className="font-medium text-blue-gray-900 mb-1">Customer Details</p>
-                    <p className="text-gray-500 text-sm">Name: {order.customerName}</p>
-                    <p className="text-gray-500 text-sm">Phone: {order.phoneNumber}</p>
                     <p className="text-gray-500 text-sm">Table: {order.tableId}</p>
                   </div>
 
